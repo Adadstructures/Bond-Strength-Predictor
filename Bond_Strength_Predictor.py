@@ -15,7 +15,7 @@ with open('bs_scaler_y.pkl', 'rb') as scaler_y_file:
     scaler_y = pickle.load(scaler_y_file)
 
 # Streamlit input form for user to input values
-st.title('Ultimate Bond Strength Prediction')
+st.title('Ultimate Bond Strength Predictor')
 
 concrete_width = st.number_input('Concrete Width (mm)', min_value=00.00)
 compressive_strength = st.number_input('Compressive Strength (MPa)', min_value=00.00)
@@ -36,8 +36,9 @@ if st.button('Predict'):
     # Denormalize the prediction
     prediction = scaler_y.inverse_transform(pred_scaled.reshape(-1, 1)).flatten()
     
-    # Display the prediction
-    st.write(f"Predicted Ultimate Bond Strength: {prediction[0]:.3f}")
+    # Display the prediction with larger font size
+    st.markdown(f"<h2 style='text-align: left; color: green; font-size: 32px;'>Predicted Ultimate Bond Strength: {prediction[0]:.3f} kN</h2>", unsafe_allow_html=True)
+
     
     # SHAP values for feature importance
     st.subheader("SHAP Feature Importance")
